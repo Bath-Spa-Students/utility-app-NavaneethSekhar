@@ -1,0 +1,61 @@
+print (""" █████╗ ██████╗  ██████╗ █████╗ ███╗   ██╗███████╗    ██╗   ██╗███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗ ███╗   ███╗ █████╗  ██████╗██╗  ██╗██╗███╗   ██╗███████╗
+██╔══██╗██╔══██╗██╔════╝██╔══██╗████╗  ██║██╔════╝    ██║   ██║██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝ ████╗ ████║██╔══██╗██╔════╝██║  ██║██║████╗  ██║██╔════╝
+███████║██████╔╝██║     ███████║██╔██╗ ██║█████╗      ██║   ██║█████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗██╔████╔██║███████║██║     ███████║██║██╔██╗ ██║█████╗  
+██╔══██║██╔══██╗██║     ██╔══██║██║╚██╗██║██╔══╝      ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══██║██║     ██╔══██║██║██║╚██╗██║██╔══╝  
+██║  ██║██║  ██║╚██████╗██║  ██║██║ ╚████║███████╗     ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║  ██║╚██████╗██║  ██║██║██║ ╚████║███████╗
+╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝      ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝ """)
+def display_items(item_type, items):
+    print(f"\nAvailable {item_type.capitalize()}:\n")
+    for code, item in items.items():
+        print(f"{code}: {item['name']} - ${item['price']} - Stock: {item['stock']}")
+#Dictionarys to display drinks and snacks 
+drinks = {
+    "A1": {"name": "cola", "price": 1.50, "stock": 7},
+    "A2": {"name": "pepsi", "price": 1.00, "stock": 7},
+    "A3": {"name": "7up", "price": 1.00, "stock": 7},
+    "A4": {"name": "fanta", "price": 1.75, "stock": 7},
+    "A5": {"name": "mirinda", "price": 1.00, "stock": 7}
+}
+
+snacks = {
+    "B1": {"name": "Potato chips", "price": 1.25, "stock": 6},
+    "B2": {"name": "Milk chocolate", "price": 1.50, "stock": 10},
+    "B3": {"name": "Chocolate chip cookies", "price": 1.00, "stock": 10},
+    "B4": {"name": "Salted nuts", "price": 1.75, "stock": 12},
+    "B5": {"name": "Energy bar", "price": 1.20, "stock": 8}
+}
+
+while True:
+    display_items("drinks", drinks)
+    display_items("snacks", snacks)
+
+    selection = input("What item would you like to purchase (type the code, e.g., A1, B2, etc. - type 'no' to end): ")
+
+    if selection.lower() == 'no':
+        print("Thank you for using the vending machine. Goodbye!")
+        break
+
+    if selection in drinks:
+        item = drinks[selection]
+        if item["stock"] > 0:
+            money_inserted = float(input(f"Insert ${item['price']} for {item['name'].capitalize()}: $"))
+            if money_inserted >= item['price']:
+                item["stock"] -= 1
+                print(f"Thank you for purchasing {item['name'].capitalize()}!")
+            else:
+                print("Insufficient funds. Please try again.")
+        else:
+            print(f"Sorry, {item['name'].capitalize()} is out of stock.")
+    elif selection in snacks:
+        item = snacks[selection]
+        if item["stock"] > 0:
+            money_inserted = float(input(f"Insert ${item['price']} for {item['name'].capitalize()}: $"))
+            if money_inserted >= item['price']:
+                item["stock"] -= 1
+                print(f"Thank you for purchasing {item['name'].capitalize()}!")
+            else:
+                print("Insufficient funds. Please try again.")
+        else:
+            print(f"Sorry, {item['name'].capitalize()} is out of stock.")
+    else:
+        print("Invalid item selection. Please try again.")
